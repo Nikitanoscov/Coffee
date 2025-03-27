@@ -1,18 +1,22 @@
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dotenv_path = BASE_DIR / '.env'
 
-SECRET_KEY = 'django-insecure-54wjty++pc%2g-tqfi-ih0&v^yuruwa0eq^c294==!g&h-jxmx'
+load_dotenv()
 
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-1t07dq9c$y9ci+9c1h2gb2!vh1k2lpb$ev%8=b4l4tnpy-etqp')
 
 
-# Application definition
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = ['*']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,9 +58,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Coffee.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -64,9 +65,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('POSTGRES_DB', 'coffee'),
+#         'USER': os.getenv('POSTGRES_USER', 'coffee_user'),
+#         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'coffee_password'),
+#         'HOST': os.getenv('HOST', 'db'),
+#         'PORT': os.getenv('PORT', '5432')
+#     }
+# }
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -84,24 +93,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
+LANGUAGE_CODE = 'ru-RU'
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
