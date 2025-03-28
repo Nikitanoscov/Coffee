@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Создать новый заказ</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {% for field in form %}
+        <div class="mb-3">
+          {{ field.label_tag }}
+          {{ field }}
+          {{ field.errors }}
+        </div>
+      {% endfor %}
+      <div id="formset-container" class="d-flex flex-column">
+        {{ item_formset.management_form }}
+        {% for form in item_formset %}
+          <div class="formset-row d-flex align-items-center mb-3">
+            {% for field in form %}
+              <div class="me-2">
+                {{ field.label_tag }} {{ field }}
+              </div>
+            {% endfor %}
+            <button type="button" class="remove-form btn btn-danger">Удалить</button>
+          </div>
+        {% endfor %}
+      </div>
+      <button type="button" id="add-form" class="btn btn-secondary mt-2">Добавить еще</button>
+      <button type="submit" class="btn btn-primary mt-2">Сохранить</button>
+    </form>
+  </div>
+<script>
+    let formsetContainer = document.getElementById('formset-container');
+    let addFormButton = document.getElementById('add-form');
+    let totalForms = document.getElementById('id_items-TOTAL_FORMS');
+
+    addFormButton.addEventListener('click', function() {
+        let formRow = document.querySelector('.formset-row');
+        let newForm = formRow.cloneNode(true);
+
+        let formCount = parseInt(totalForms.value);
+        newForm.innerHTML = newForm.innerHTML.replace(/items-\d+/g, 'items-' + formCount);
+
+        formsetContainer.appendChild(newForm);
+        totalForms.value = formCount + 1;
+    });
+
+    formsetContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-form')) {
+            let formRows = document.querySelectorAll('.formset-row');
+            if (formRows.length > 1) {
+                e.target.closest('.formset-row').remove();
+                totalForms.value = parseInt(totalForms.value) - 1;
+            }
+        }
+    });
+</script>
+{% endblock %}
