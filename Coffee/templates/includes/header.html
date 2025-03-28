@@ -1,0 +1,17 @@
+{% load static %}
+<header>
+  <nav class="navbar navbar-light" style="background-color: black">
+    <div class="container">
+        <ul class="nav  nav-pills">
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'orders:orders-list' %}">Список заказов</a></button>
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'orders:orders-create' %}">Создать заказ</a></button>
+              {% comment %} <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url '' %}">Выйти</a></button> {% endcomment %}
+            </div>
+        </ul>
+    </div>
+  </nav>
+</header>
