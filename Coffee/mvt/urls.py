@@ -12,16 +12,31 @@ urlpatterns = [
     path(
         'orders/',
         views.OrderListView.as_view(),
-        name='orders-list'
+        name='list'
     ),
     path(
         'orders/create/',
         views.OrderCreateView.as_view(),
-        name='orders-create'
+        name='create'
+    ),
+    path(
+        'orders/<int:order_id>/delete',
+        views.delete_order,
+        name='delete'
+    ),
+    path(
+        'orders/<int:order_id>/edit/',
+        views.OrderUpdateView.as_view(),
+        name='edit'
     ),
     path(
         'orders/<int:order_id>/',
         views.OrderDetailView.as_view(),
-        name='orders-detail'
+        name='detail'
     ),
+    path(
+        'orders/revenue/',
+        views.RevenueGetView.as_view(),
+        name='revenue'
+    )
 ]

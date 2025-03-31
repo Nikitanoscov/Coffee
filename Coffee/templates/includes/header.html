@@ -5,11 +5,11 @@
         <ul class="nav  nav-pills">
             <div class="btn-group" role="group" aria-label="Basic outlined example">
               <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'orders:orders-list' %}">Список заказов</a></button>
+                  href="{% url 'orders:list' %}">Список заказов</a></button>
               <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'orders:orders-create' %}">Создать заказ</a></button>
-              {% comment %} <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url '' %}">Выйти</a></button> {% endcomment %}
+                  href="{% url 'orders:create' %}">Создать заказ</a></button>
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'orders:revenue' %}">Выручка</a></button>
             </div>
         </ul>
     </div>
