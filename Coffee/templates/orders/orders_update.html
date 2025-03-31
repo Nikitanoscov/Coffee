@@ -2,12 +2,12 @@
 {% load django_bootstrap5 %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Создать новый заказ</h1>
+    <h1 class="mb-4">Редактирование заказа</h1>
     <form method="post">
       {% csrf_token %}
       {{ form.non_field_errors }}
       {% for field in form %}
-        {% if field.name != 'status' %}
+        {% if field.name != 'table_number' %}
           <div class="mb-3">
             {{ field.label_tag }}
             {{ field }}
@@ -15,7 +15,7 @@
           </div>
           {% endif %}
       {% endfor %}
-      <div id="formset-container" class="d-flex flex-column">
+        <div id="formset-container" class="d-flex flex-column">
         {{ item_formset.management_form }}
         {% for form in item_formset %}
           <div class="formset-row d-flex align-items-center mb-3">

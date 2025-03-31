@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Заказ № {{ orders.id }}</h1>
+        <h1 class="mb-4">Номер стола {{ orders.table_number }}</h1>
+        <h1 class="mb-4">Статус {{ orders.status }}</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Блюдо</th>
+                    <th>Стоимость</th>
+                    <th>Количество</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in orders.items.all %}
+                <tr>
+                    <td>{{ item.dish }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn btn-sm text-muted" href="{% url 'orders:edit' orders.id %}" role="button">
+            Редактировать
+        </a>
+        <a class="btn btn-sm text-muted" href="{% url 'orders:delete' orders.id %}" role="button">
+            Удалить
+        </a>
+    </div>
+{% endblock %}

@@ -2,6 +2,20 @@
 {% load django_bootstrap5 %}
 {% block content %}
     <div class="container mt-5">
+        <form method="get" action="">
+            <label for="status">Статус заказа:</label>
+            <select id="status" name="status">
+                <option value="">Все</option>
+                <option value="В ожидании" {% if request.GET.status == 'В ожидании' %}selected{% endif %}>В ожидании</option>
+                <option value="Готово" {% if request.GET.status == 'Готово' %}selected{% endif %}>Готово</option>
+                <option value="Оплачено" {% if request.GET.status == 'Оплачено' %}selected{% endif %}>Оплачено</option>
+            </select>
+            
+            <label for="order_id">ID заказа:</label>
+            <input type="text" id="order_id" name="order_id" value="{{ request.GET.order_id }}">
+            
+            <button type="submit">Фильтровать</button>
+        </form>
         <h1 class="mb-4">Список заказов</h1>
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
@@ -9,6 +23,7 @@
                     <th>№ Заказа</th>
                     <th>Номер стола</th>
                     <th>Статус</th>
+                    <th>Блюда</th>
                     <th>Общая стоимость (₽)</th>
                     <th>Подробности</th>
                 </tr>
@@ -19,9 +34,14 @@
                     <td>{{ order.id }}</td>
                     <td>{{ order.table_number }}</td>
                     <td>{{ order.status }}</td>
+                    <td>
+                    {% for item in order.items.all %}
+                        {{ item.dish }} - {{ item.quantity }} шт<br>
+                    {% endfor %}
+                    </td>       
                     <td>{{ order.total_price }}</td>
                     <td>
-                        <a class="btn btn-sm text-muted" href="{% url 'orders:orders-detail' order.id %}" role="button">
+                        <a class="btn btn-sm text-muted" href="{% url 'orders:detail' order.id %}" role="button">
                             Подробности
                         </a>
                     </td>
