@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 
+handler404 = 'mvt.errors.not_found_404'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mvt.urls'))
