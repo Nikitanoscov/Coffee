@@ -3,9 +3,9 @@ from django.db import models
 
 class Orders(models.Model):
     STATUS_CHOICES = [
-        ('pending', 'В ожидании'),
-        ('ready', 'Готово'),
-        ('paid', 'Оплачено'),
+        ('В ожидании', 'В ожидании'),
+        ('Готово', 'Готово'),
+        ('Оплачено', 'Оплачено'),
     ]
 
     table_number = models.PositiveSmallIntegerField(
@@ -13,7 +13,8 @@ class Orders(models.Model):
     )
     status = models.CharField(
         choices=STATUS_CHOICES,
-        max_length=20
+        max_length=20,
+        default='В ожидании'
     )
 
     @property
