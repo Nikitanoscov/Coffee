@@ -28,7 +28,10 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'mvt.apps.MvtConfig',
     'core.apps.CoreConfig',
+    'rest_framework',
+    'django_filters',
     'django_bootstrap5',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -109,6 +112,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Coffee house managment',                               # Название API
+    'DESCRIPTION': 'API для работы с заказами в кофейне',  # Описание API
+    'VERSION': '1.0.0',                                           # Версия API
+    'SERVE_INCLUDE_SCHEMA': False,                                # Отключение схемы в ответах API
+}
 
 STATIC_URL = '/static/'
 
