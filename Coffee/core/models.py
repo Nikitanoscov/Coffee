@@ -1,4 +1,6 @@
+from django.core.validators import MinValueValidator
 from django.db import models
+
 
 
 class Orders(models.Model):
@@ -40,9 +42,11 @@ class OrdersItems(models.Model):
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name='Цена'
+        verbose_name='Цена',
+        validators=[MinValueValidator(1)]
     )
     quantity = models.PositiveSmallIntegerField(
         verbose_name='Количество',
         default=1,
+        validators=[MinValueValidator(1)]
     )
