@@ -2,8 +2,10 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 
-
 class Orders(models.Model):
+    """
+    Класс заказов.
+    """
     STATUS_CHOICES = [
         ('В ожидании', 'В ожидании'),
         ('Готово', 'Готово'),
@@ -29,6 +31,9 @@ class Orders(models.Model):
 
 
 class OrdersItems(models.Model):
+    """
+    Класс для связывания закозов с блюдами.
+    """
 
     order = models.ForeignKey(
         Orders,

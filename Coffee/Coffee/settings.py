@@ -15,8 +15,12 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-1t07dq9c$y9ci+9c1h2gb2!vh1
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
+
 ALLOWED_HOSTS = ['*']
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -32,6 +36,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_bootstrap5',
     'drf_spectacular',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -42,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'Coffee.urls'
@@ -118,10 +124,10 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Coffee house managment',                               # Название API
-    'DESCRIPTION': 'API для работы с заказами в кофейне',  # Описание API
-    'VERSION': '1.0.0',                                           # Версия API
-    'SERVE_INCLUDE_SCHEMA': False,                                # Отключение схемы в ответах API
+    'TITLE': 'Coffee house managment',
+    'DESCRIPTION': 'API для работы с заказами в кофейне',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 STATIC_URL = '/static/'

@@ -1,14 +1,16 @@
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import ListAPIView
-from rest_framework.permissions import SAFE_METHODS
-from django.db.models import Sum
 
 from core.models import Orders
-from core.serializers import UpdateOrdersSerializer, CreateOrdersSerializer
+from core.serializers import CreateOrdersSerializer, UpdateOrdersSerializer
 
 
 class OrdersViewSet(ModelViewSet):
+    """
+    Множество представлений для
+    выполнения CRUD операций над заказами.
+    """
     queryset = Orders.objects.prefetch_related('items')
     serializer_class = CreateOrdersSerializer
     filterset_fields = ['id', 'status']
@@ -20,6 +22,10 @@ class OrdersViewSet(ModelViewSet):
 
 
 class RevenueView(ListAPIView):
+    """
+    Представление для подсчета
+    выручки оплаченных заказов.
+    """
     queryset = Orders.objects.prefetch_related(
         'items'
     ).filter(

@@ -4,7 +4,10 @@ from django.forms import inlineformset_factory, ValidationError
 from core.models import Orders, OrdersItems
 
 
-class OrderForm(forms.ModelForm):
+class UpdateOrderForm(forms.ModelForm):
+    """
+    Форма для редактирования заказа.
+    """
     class Meta:
         model = Orders
         fields = (
@@ -13,6 +16,9 @@ class OrderForm(forms.ModelForm):
 
 
 class CreateOrderForm(forms.ModelForm):
+    """
+    Форма для создания заказа.
+    """
     class Meta:
         model = Orders
         fields = (
@@ -21,6 +27,9 @@ class CreateOrderForm(forms.ModelForm):
 
 
 class OrderItemForm(forms.ModelForm):
+    """
+    Форма для создания или редактирования позиции заказа.
+    """
     class Meta:
         model = OrdersItems
         fields = (
@@ -31,6 +40,9 @@ class OrderItemForm(forms.ModelForm):
 
 
 class ValidateFormSet(forms.BaseInlineFormSet):
+    """
+    Формсет с дополнительной валидацией для набора форм элементов заказа.
+    """
     def clean(self):
         super().clean()
         has_valid_item = False
@@ -42,7 +54,12 @@ class ValidateFormSet(forms.BaseInlineFormSet):
                 if dish and price and quantity:
                     has_valid_item = True
         if not has_valid_item:
-            raise ValidationError('Необходимо добавить хотя бы одно блюдо с заполненными всеми полями.')
+            raise ValidationError(
+                (
+                    'Необходимо добавить хотя бы одно блюдо',
+                    ' с заполненными всеми полями.'
+                )
+            )
 
 
 OrdersItemsFormSet = inlineformset_factory(

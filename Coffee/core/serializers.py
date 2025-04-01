@@ -5,7 +5,9 @@ from core.models import Orders, OrdersItems
 
 
 class OrdersItemsSerializer(serializers.ModelSerializer):
-
+    """
+    Сериализатор блюд для вложенного использования при работе с заказами.
+    """
     class Meta:
         model = OrdersItems
         fields = (
@@ -29,6 +31,9 @@ class OrdersItemsSerializer(serializers.ModelSerializer):
 
 
 class BaseOrdersSerializer(serializers.ModelSerializer):
+    """
+    Базовый класс для наследования сериализаторов для работы с заказами.
+    """
     items = OrdersItemsSerializer(
         many=True,
         required=True
@@ -70,7 +75,9 @@ class BaseOrdersSerializer(serializers.ModelSerializer):
 
 
 class UpdateOrdersSerializer(BaseOrdersSerializer):
-
+    """
+    Сериализатор для редактирования заказов.
+    """
     class Meta(BaseOrdersSerializer.Meta):
 
         read_only_fields = BaseOrdersSerializer.Meta.read_only_fields + [
@@ -86,6 +93,9 @@ class UpdateOrdersSerializer(BaseOrdersSerializer):
 
 
 class CreateOrdersSerializer(BaseOrdersSerializer):
+    """
+    Сериализатор для сохдания заказов.
+    """
     items = OrdersItemsSerializer(
         many=True,
         required=True
@@ -102,4 +112,3 @@ class CreateOrdersSerializer(BaseOrdersSerializer):
         order = Orders.objects.create(**validated_data)
         self._create_items(order, items)
         return order
-
