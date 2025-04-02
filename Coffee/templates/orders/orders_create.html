@@ -20,11 +20,13 @@
         {% for form in item_formset %}
           <div class="formset-row d-flex align-items-center mb-3">
             {% for field in form %}
-                <div class="me-2">
-                  {{ field.label_tag }} 
-                  {{ field }} 
-                  {{ field.errors }}
-                </div>
+                {% if field.name not in 'id order' %}
+                    <div class="me-2">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
             {% endfor %}
             <button type="button" class="remove-form btn btn-danger">Удалить</button>
           </div>

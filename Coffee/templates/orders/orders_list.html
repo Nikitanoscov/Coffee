@@ -25,7 +25,8 @@
                     <th>Статус</th>
                     <th>Блюда</th>
                     <th>Общая стоимость (₽)</th>
-                    <th>Подробности</th>
+                    <th>Редактировать</th>
+                    <th>Удалить</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,8 +42,13 @@
                     </td>       
                     <td>{{ order.total_price }}</td>
                     <td>
-                        <a class="btn btn-sm text-muted" href="{% url 'orders:detail' order.id %}" role="button">
-                            Подробности
+                        <a class="btn btn-sm text-muted" href="{% url 'orders:edit' order.id %}" role="button">
+                            Редактировать
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm text-muted" href="{% url 'orders:delete' order.id %}" role="button">
+                            Удалить
                         </a>
                     </td>
                 </tr>
