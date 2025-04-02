@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, 
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from .forms import CreateOrderForm, OrdersItemsFormSet, UpdateOrderForm
 from core.models import Orders, OrdersItems
@@ -120,17 +120,21 @@ class RevenueGetView(ListView):
     """
     Класс представления для отображения оплаченных заказов и выручки за них
     """
-    queryset = Orders.objects.prefetch_related(
-        'items'
-    ).filter(
-        status='Оплачено'
-    )
     template_name = 'orders/order_revenue.html'
     context_object_name = 'orders'
 
+    def get_queryset(self):
+        return Orders.objects.prefetch_related(
+            'items'
+        ).filter(
+            status='Оплачено'
+        )
+
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
-        result['revenue'] = sum(order.total_price for order in self.queryset)
+        result['revenue'] = sum(
+            order.total_price for order in self.get_queryset()
+        )
         return result
 
 
