@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-1t07dq9c$y9ci+9c1h2gb2!vh1
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('HOSTS_PROJECT', '*').split(' ')
 
 INTERNAL_IPS = [
     '127.0.0.1',
@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_bootstrap5',
     'drf_spectacular',
-    'debug_toolbar',
+    # 'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'Coffee.urls'
@@ -80,16 +80,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('POSTGRES_DB', 'coffee'),
-#         'USER': os.getenv('POSTGRES_USER', 'coffee_user'),
-#         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'coffee_password'),
-#         'HOST': os.getenv('HOST', 'db'),
-#         'PORT': os.getenv('PORT', '5432')
-#     }
-# }
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -121,6 +111,12 @@ USE_TZ = True
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
 }
 
 SPECTACULAR_SETTINGS = {
