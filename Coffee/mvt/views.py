@@ -68,16 +68,6 @@ class OrderCreateView(CreateView):
             return self.form_invalid(form)
 
 
-class OrderDetailView(DetailView):
-    """
-    Класс-представление для подробного отображения заказа.
-    """
-    model = Orders
-    queryset = Orders.objects.prefetch_related('items')
-    template_name = 'orders/order_detail.html'
-    pk_url_kwarg = 'order_id'
-
-
 class OrderUpdateView(UpdateView):
     """
     Класс-представление для редактирования существующего заказа.

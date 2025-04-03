@@ -30,11 +30,6 @@ urlpatterns = [
         name='edit'
     ),
     path(
-        'orders/<int:order_id>/',
-        views.OrderDetailView.as_view(),
-        name='detail'
-    ),
-    path(
         'orders/revenue/',
         views.RevenueGetView.as_view(),
         name='revenue'
