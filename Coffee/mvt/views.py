@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from .forms import CreateOrderForm, OrdersItemsFormSet, UpdateOrderForm
 from core.models import Orders, OrdersItems

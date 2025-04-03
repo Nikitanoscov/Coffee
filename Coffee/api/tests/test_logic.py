@@ -89,21 +89,3 @@ def test_user_can_update_order_status(order, update_data):
         'При редактировании статуса заказа,',
         ' не происходит изменение данных в базе'
     )
-
-
-@pytest.mark.django_db
-def test_user_can_update_order_status(order, update_data):
-    client = APIClient()
-    count_orders = Orders.objects.filter(status=update_data['status']).count()
-    response = client.put(f'/api/orders/{order.id}/', update_data, 'json')
-    assert (
-        response.status_code == status.HTTP_200_OK
-    ), 'Ответ на редактирование заказа должен возвращаться со статусом 200'
-    assert (
-        count_orders + 1 == Orders.objects.filter(
-            status=update_data['status']
-        ).count()
-    ), (
-        'При редактировании статуса заказа,',
-        ' не происходит изменение данных в базе'
-    )

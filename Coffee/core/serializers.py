@@ -124,7 +124,6 @@ class CreateOrdersSerializer(BaseOrdersSerializer):
                 'table_number является обязательным полем'
             )
         return super().validate(attrs)
-    
 
     @transaction.atomic
     def create(self, validated_data):

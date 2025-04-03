@@ -1,5 +1,4 @@
 import pytest
-from rest_framework import status
 from rest_framework.test import APIClient
 
 from core.models import Orders
@@ -41,7 +40,10 @@ def test_revenue_orders(many_orders):
     print(response)
     assert (
         'total_revenue' in response.data
-    ), 'Ответ должен содержать поле total_revenue суммой всех оплаченных заказов'
+    ), (
+        'Ответ должен содержать поле total_revenue',
+        'суммой всех оплаченных заказов'
+    )
     assert (
         response.data['total_revenue'] == sum(
             order.total_price for order in Orders.objects.filter(
@@ -51,6 +53,6 @@ def test_revenue_orders(many_orders):
     ), 'total_revenue должен содержать верное значение.'
     assert (
         len(response.data['results']) == Orders.objects.filter(
-                status='Оплачено'
-            ).count()
+            status='Оплачено'
+        ).count()
     ), 'Ответ должен содержать все оплаченные заказы.'

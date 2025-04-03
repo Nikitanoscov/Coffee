@@ -1,5 +1,3 @@
-from http import HTTPStatus
-
 from django.urls import reverse
 import pytest
 
@@ -29,8 +27,8 @@ def test_revenue_orders(client, many_orders):
         orders.count() == Orders.objects.filter(status='Оплачено').count()
     ), (
         'Заказы на странице выручки отображаются не корректно:',
-        ' количество заказов не соответствует количеству в базе данных' 
-        )
+        ' количество заказов не соответствует количеству в базе данных'
+    )
     assert (total_sum == sum(
         order.total_price for order in Orders.objects.filter(status='Оплачено')
     )), (

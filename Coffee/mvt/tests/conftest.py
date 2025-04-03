@@ -53,6 +53,7 @@ def order_create_form_data():
         'items-0-quantity': '2',
     }
 
+
 @pytest.fixture
 def order_update_form_data():
     return {
