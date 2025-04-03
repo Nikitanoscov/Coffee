@@ -60,6 +60,11 @@ class BaseOrdersSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 detail='Items не может быть пустым.'
             )
+        dish_names = [item['dish'] for item in items]
+        if len(dish_names) != len(set(dish_names)):
+            raise serializers.ValidationError(
+                detail='В одном заказе не может быть двух одинаковых блюд.'
+            )
         return super().validate(attrs)
 
     @staticmethod
@@ -84,6 +89,13 @@ class UpdateOrdersSerializer(BaseOrdersSerializer):
             'table_number'
         ]
 
+    def validate(self, attrs):
+        if 'status' not in attrs:
+            raise serializers.ValidationError(
+                'status является обязательным полем'
+            )
+        return super().validate(attrs)
+
     @transaction.atomic
     def update(self, instance, validated_data):
         items = validated_data.pop('items', [])
@@ -105,6 +117,14 @@ class CreateOrdersSerializer(BaseOrdersSerializer):
         read_only_fields = BaseOrdersSerializer.Meta.read_only_fields + [
             'status'
         ]
+
+    def validate(self, attrs):
+        if 'table_number' not in attrs:
+            raise serializers.ValidationError(
+                'table_number является обязательным полем'
+            )
+        return super().validate(attrs)
+    
 
     @transaction.atomic
     def create(self, validated_data):

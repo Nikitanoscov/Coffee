@@ -55,3 +55,4 @@ class OrdersItems(models.Model):
         default=1,
         validators=[MinValueValidator(1)]
     )
+

@@ -40,7 +40,9 @@ class RevenueView(ListAPIView):
             queryset,
             many=True
         ).data
-        return Response({
-            'results': serializer_data,
-            'total_revenue': total_revenue
-        })
+        return Response(
+            {
+                'results': serializer_data,
+                'total_revenue': total_revenue
+            }
+        )
