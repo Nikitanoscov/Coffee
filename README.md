@@ -73,4 +73,4 @@ DEBUG=True
 Для API существует два вида документации
 Для ознакомления после запуска проекта прейдете по этим ссылкам
   - Swagger - http://127.0.0.1:8000/api/docs/swagger/
-  - Redoc - http://127.0.0.1:8000/api/docs/swagger/
+  - Redoc - http://127.0.0.1:8000/api/docs/redoc/
