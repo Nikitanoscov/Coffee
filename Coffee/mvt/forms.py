@@ -46,6 +46,7 @@ class ValidateFormSet(forms.BaseInlineFormSet):
     def clean(self):
         super().clean()
         has_valid_item = False
+        dish_names = set()
         for form in self.forms:
             if form.cleaned_data and not form.cleaned_data.get('DELETE'):
                 dish = form.cleaned_data.get('dish')
@@ -53,6 +54,13 @@ class ValidateFormSet(forms.BaseInlineFormSet):
                 quantity = form.cleaned_data.get('quantity')
                 if dish and price and quantity:
                     has_valid_item = True
+
+                    if dish in dish_names:
+                        raise ValidationError(
+                            f'Блюдо "{dish}" уже добавлено в заказ.'
+                        )
+                    dish_names.add(dish)
+
         if not has_valid_item:
             raise ValidationError(
                 (
